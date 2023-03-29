@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '3290baa1767fbe4abcf7a5fe81670d6a20d77dab',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '3524de203856d436bf62d5b98b0c1d267d68b3f2',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '3290baa1767fbe4abcf7a5fe81670d6a20d77dab',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '3524de203856d436bf62d5b98b0c1d267d68b3f2',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -481,15 +481,6 @@
             'reference' => '55071edc7115b1bfb15f286b4d6784a84ff09351',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/yaml',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'twig/extra-bundle' => array(
-            'pretty_version' => 'v3.5.1',
-            'version' => '3.5.1.0',
-            'reference' => 'a961e553a624eebdbd423ad5ab931497ca6d87cd',
-            'type' => 'symfony-bundle',
-            'install_path' => __DIR__ . '/../twig/extra-bundle',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
