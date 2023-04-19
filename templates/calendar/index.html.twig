@@ -1,20 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CalendarController!{% endblock %}
+{% block title %}FoodMate - Calendar{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/jakub/git/foodMate/src/Controller/CalendarController.php'|file_link(0) }}">src/Controller/CalendarController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/jakub/git/foodMate/templates/calendar/index.html.twig'|file_link(0) }}">templates/calendar/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block main %}
+    <div class="calendar">
+        <div class="month">
+            <button class="prev">&#10094;</button>
+            <h2>Marzec 2023</h2>
+            <button class="next">&#10095;</button>
+        </div>
+        <ul class="weekdays">
+            <li>Pn</li>
+            <li>Wt</li>
+            <li>Śr</li>
+            <li>Cz</li>
+            <li>Pt</li>
+            <li>So</li>
+            <li>Nd</li>
+        </ul>
+        <ul class="days">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+            <li>16</li>
+            <li>17</li>
+            <li>18</li>
+            <li>19</li>
+            <li>20</li>
+            <li>21</li>
+            <li>22</li>
+            <li>23</li>
+            <li>24</li>
+            <li>25</li>
+            <li>26</li>
+            <li>27</li>
+            <li>28</li>
+            <li>29</li>
+            <li>30</li>
+            <li>31</li>
+        </ul>
+    </div>
 {% endblock %}
