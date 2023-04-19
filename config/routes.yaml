@@ -1,3 +1,9 @@
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+        template: default/homepage.html.twig
+
 controllers:
     resource:
         path: ../src/Controller/

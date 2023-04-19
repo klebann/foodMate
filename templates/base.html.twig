@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}FoodMate!{% endblock %}</title>
+        <meta name="description" content="Aplikacja ma pomóc użytkownikowi w organizowaniu posiłków, planowaniu menu, robieniu listy zakupów oraz śledzeniu zawartości lodówki.">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -13,7 +15,30 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body id="{% block body_id %}{% endblock %}">
+        {% block header %}
+            {% set _route = app.request.get('_route') %}
+            {{ include('default/_navigation.html.twig') }}
+        {% endblock %}
+
+        <div class="banner"><a href="{{ path('homepage') }}"><img src="{{ asset('images/baner.png') }}" width="100%" alt="baner"></a></div>
+
+        <div class="container body-container">
+            {% block body %}
+                <div class="row">
+                    <div id="main" class="col-sm-9">
+                        {{ include('default/_flash_messages.html.twig') }}
+
+                        {% block main %}{% endblock %}
+                    </div>
+
+                    <div id="sidebar" class="col-sm-3">
+                        {% block sidebar %}
+                            Test
+                        {% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
     </body>
 </html>

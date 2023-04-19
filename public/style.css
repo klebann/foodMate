@@ -1,0 +1,145 @@
+calendar {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.month {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ddd;
+  padding: 10px;
+}
+
+.weekdays {
+  display: flex;
+  justify-content: space-between;
+  background-color: #eee;
+  padding: 10px;
+  list-style-type: none;
+}
+
+.weekdays li {
+  width: calc(100% / 7);
+  text-align: center;
+}
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px;
+  list-style-type: none;
+}
+
+.days li {
+  width: calc(100% / 7);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.prev, .next {
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.prev:hover, .next:hover {
+  background-color: #bbb;
+}
+
+.prev {
+  margin-left: 10px;
+}
+
+.next {
+  margin-right: 10px;
+}
+nav {
+  background-color: #333;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-align:center;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav li a:hover {
+  background-color: #111;
+}
+.banner {
+  width: 80%; 
+  margin: 0 auto; 
+  text-align: center; 
+  display: flex;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  font-size: 18px;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+label {
+  cursor: pointer;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label, input[type="text"], input[type="submit"] {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.bann.article1 {
+  margin: auto;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+}
