@@ -72,6 +72,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/hpack" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/http-client" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/http" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/web-profiler-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
