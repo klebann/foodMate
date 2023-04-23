@@ -23,7 +23,10 @@
     {% set _route = app.request.get('_route') %}
     <div class="banner">
         <a href="{{ path('homepage') }}">
-            <img src="{{ asset('images/baner.png') }}" width="100%" alt="baner">
+            <img id="logo" src="{{ asset('images/logo.png') }}" width="100%">
+        </a>
+        <a href="{{ path('homepage') }}">
+            <img src="{{ asset('images/baner.png') }}" width="100%">
         </a>
     </div>
     {{ include('default/_navigation.html.twig') }}
