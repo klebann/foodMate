@@ -11,8 +11,6 @@ class HomeController extends AbstractController
     #[Route('/', name: 'homepage')]
     public function index(): Response
     {
-        return $this->render('default/homepage.html.twig', [
-            'controller_name' => 'CalendarController',
-        ]);
+        return $this->render('default/homepage.html.twig');
     }
 }
