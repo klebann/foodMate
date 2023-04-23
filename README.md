@@ -57,6 +57,11 @@ Reset forwarding:
 netsh interface portproxy reset
 ```
 
+Run database from Docker:
+```cmd
+docker compose up
+```
+
 Tests
 -----
 
