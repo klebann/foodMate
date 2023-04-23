@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block main %}
+    <h1>Lista produktów</h1>
+
+    <form>
+        <label for="search">Wyszukaj produkt:</label>
+        <input type="text" id="search" name="search">
+        <button type="submit">Szukaj</button>
+    </form>
+
+    <ul>
+        {% for product in products %}
+            <li>
+                <h2><a href="{{ path('product_show', {id: product.id} ) }}">{{ product.name }}</a></h2>
+                <p>{{ product.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
