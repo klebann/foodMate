@@ -16,24 +16,24 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body id="{% block body_id %}{% endblock %}">
-{% block header %}
-    {% set _route = app.request.get('_route') %}
-    <div class="banner">
-        <a href="{{ path('homepage') }}">
-            <img id="logo" src="{{ asset('images/logo.png') }}" width="100%">
-        </a>
-        <a href="{{ path('homepage') }}">
-            <img src="{{ asset('images/baner.png') }}" width="100%">
-        </a>
-    </div>
-    {{ include('default/_navigation.html.twig') }}
-{% endblock %}
+{% block body %}
+    {% block header %}
+        {% set _route = app.request.get('_route') %}
+        <div class="banner">
+            <a href="{{ path('homepage') }}">
+                <img id="logo" src="{{ asset('images/logo.png') }}" width="100%">
+            </a>
+            <a href="{{ path('homepage') }}">
+                <img src="{{ asset('images/baner.png') }}" width="100%">
+            </a>
+        </div>
+        {{ include('default/_navigation.html.twig') }}
+    {% endblock %}
 
-<div class="container body-container">
-    {% block body %}
+    <div class="container body-container">
         <div class="row">
             <div id="main" class="col-sm-9">
                 {{ include('default/_flash_messages.html.twig') }}
@@ -41,13 +41,13 @@
                 {% block main %}{% endblock %}
             </div>
 
-{#            <div id="sidebar" class="col-sm-3">#}
-{#                {% block sidebar %}#}
-{#                    SideBar#}
-{#                {% endblock %}#}
-{#            </div>#}
+            {#            <div id="sidebar" class="col-sm-3"> #}
+            {#                {% block sidebar %} #}
+            {#                    SideBar #}
+            {#                {% endblock %} #}
+            {#            </div> #}
         </div>
-    {% endblock %}
-</div>
+    </div>
+{% endblock %}
 </body>
 </html>

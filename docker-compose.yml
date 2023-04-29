@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: foodMate
-    ports:    
+    ports:
       - "3306:3306"
 
   phpmyadmin:
