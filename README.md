@@ -27,8 +27,7 @@ wget https://get.symfony.com/cli/installer -O - | bash
 
 symfony check:requirements
 
-sudo apt-get install -y php-simplexml php-mbstring php-initl php-mysql
-sudo apt install zip unzip php-zip
+sudo apt-get install -y php-simplexml php-mbstring php-initl php-mysql php-xml zip unzip php-zip
 
 composer install
 ```
