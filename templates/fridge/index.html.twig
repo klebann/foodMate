@@ -5,12 +5,17 @@
 {% block main %}
     <h1>Lodówka:</h1>
 
-    <ul>
+    <ul id="product-list" class="list-group mt-4 bg-light">
         {% for fridge_product in fridge_products %}
             <li>
-                <a href="{{ path('product_show', {id: fridge_product.product.id} ) }}"><h2>{{ fridge_product.product.name }}</h2></a>
-                <p>Opis: {{ fridge_product.product.description }}</p>
-                <p>Ilość: {{ fridge_product.quantity }} {{ fridge_product.product.unit }}</p>
+                <div class="d-flex align-items-center">
+                    <span class="product-name"><a href="{{ path('product_show', {id: fridge_product.product.id} ) }}">{{ fridge_product.product.name }}</a></span>
+                    - {{ fridge_product.product.description }}
+                    <div class="product-quantity d-flex align-items-center ms-auto">
+                        <p>Ilość: {{ fridge_product.quantity }} {{ fridge_product.product.unit }}</p>
+                    </div>
+                    <button class="btn btn-sm btn-danger remove-btn">Usuń</button>
+                </div>
             </li>
         {% endfor %}
     </ul>

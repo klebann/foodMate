@@ -3,53 +3,152 @@
 {% block title %}FoodMate - Calendar{% endblock %}
 
 {% block main %}
-    <div class="calendar">
-        <div class="month">
-            <button class="prev">&#10094;</button>
-            <h2>Marzec 2023</h2>
-            <button class="next">&#10095;</button>
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <button class="btn btn-primary float-left" onclick="previousWeek()">Poprzedni tydzień</button>
+                        <button class="btn btn-primary float-right" onclick="nextWeek()">Następny tydzień</button>
+                        <div class="clearfix"></div>
+                        <span id="currentWeek"></span>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Pon</th>
+                                <th>Wt</th>
+                                <th>Śr</th>
+                                <th>Czw</th>
+                                <th>Pią</th>
+                                <th>Sob</th>
+                                <th>Niedz</th>
+                            </tr>
+                            </thead>
+                            <tbody id="calendarBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <ul class="weekdays">
-            <li>Pn</li>
-            <li>Wt</li>
-            <li>Śr</li>
-            <li>Cz</li>
-            <li>Pt</li>
-            <li>So</li>
-            <li>Nd</li>
-        </ul>
-        <ul class="days">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li>11</li>
-            <li>12</li>
-            <li>13</li>
-            <li>14</li>
-            <li>15</li>
-            <li>16</li>
-            <li>17</li>
-            <li>18</li>
-            <li>19</li>
-            <li>20</li>
-            <li>21</li>
-            <li>22</li>
-            <li>23</li>
-            <li>24</li>
-            <li>25</li>
-            <li>26</li>
-            <li>27</li>
-            <li>28</li>
-            <li>29</li>
-            <li>30</li>
-            <li>31</li>
-        </ul>
     </div>
+
+    <div id="mealFormModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Dodaj jadłospis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formularz dodawania jadłospisu -->
+                    <form id="mealForm">
+                        <div class="mb-3">
+                            <label for="mealDate" class="form-label">Data</label>
+                            <input type="text" class="form-control" id="mealDate" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mealName" class="form-label">Nazwa posiłku</label>
+                            <select class="form-select" id="mealName">
+                                <option value="">Wybierz nazwę posiłku</option>
+                                <option value="Śniadanie">Śniadanie</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Obiad">Obiad</option>
+                                <option value="Podwieczorek">Podwieczorek</option>
+                                <option value="Kolacja">Kolacja</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mealDish" class="form-label">Nazwa dania</label>
+                            <select class="form-select" id="mealDish">
+                                <option value="">Wybierz nazwę dania</option>
+                                <option value="Spaghetti Bolognese">Spaghetti Bolognese</option>
+                                <option value="Sałatka grecka">Sałatka grecka</option>
+                                <option value="Kurczak curry">Kurczak curry</option>
+                                <option value="Kotlet schabowy">Kotlet schabowy</option>
+                                <option value="Zupa pomidorowa">Zupa pomidorowa</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mealIngredients" class="form-label">Składniki</label>
+                            <select class="form-select" id="mealIngredients" multiple>
+                                <option value="Marchew">Marchew</option>
+                                <option value="Cebula">Cebula</option>
+                                <option value="Pomidory">Pomidory</option>
+                                <option value="Makaron">Makaron</option>
+                                <option value="Mięso mielone">Mięso mielone</option>
+                                <option value="Oliwa z oliwek">Oliwa z oliwek</option>
+                                <option value="Sól">Sól</option>
+                                <option value="Pieprz">Pieprz</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Dodaj</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+    <script>
+        moment.locale('pl');
+
+        var currentWeekStart = moment().startOf('week');
+        displayWeek(currentWeekStart);
+
+        function displayWeek(startDate) {
+            var calendarBody = document.getElementById('calendarBody');
+            calendarBody.innerHTML = '';
+
+            var currentDay = startDate.clone();
+
+            for (var i = 0; i < 7; i++) {
+                var dayCell = document.createElement('td');
+                dayCell.textContent = currentDay.format('D');
+                dayCell.setAttribute('data-date', currentDay.format('YYYY-MM-DD'));
+                dayCell.setAttribute('onclick', 'openMealForm("' + currentDay.format('YYYY-MM-DD') + '")');
+                calendarBody.appendChild(dayCell);
+
+                currentDay.add(1, 'day');
+            }
+
+            document.getElementById('currentWeek').textContent = startDate.format('D MMMM YYYY') + ' - ' + currentDay.subtract(1, 'day').format('D MMMM YYYY');
+        }
+
+        function previousWeek() {
+            currentWeekStart.subtract(7, 'days');
+            displayWeek(currentWeekStart);
+        }
+
+        function nextWeek() {
+            currentWeekStart.add(7, 'days');
+            displayWeek(currentWeekStart);
+        }
+
+        function openMealForm(date) {
+            document.getElementById('mealDate').value = date;
+            var modal = new bootstrap.Modal(document.getElementById('mealFormModal'));
+            modal.show();
+        }
+
+        document.getElementById('mealForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var mealDate = document.getElementById('mealDate').value;
+            var mealName = document.getElementById('mealName').value;
+            var mealDish = document.getElementById('mealDish').value;
+            var mealIngredients = Array.from(document.getElementById('mealIngredients').selectedOptions).map(function (option) {
+                return option.value;
+            });
+
+            // Przetwarzanie danych formularza, np. wysyłka do serwera
+
+            // Zamknięcie modala
+            var modal = bootstrap.Modal.getInstance(document.getElementById('mealFormModal'));
+            modal.hide();
+
+            // Wyczyść formularz
+            document.getElementById('mealForm').reset();
+        });
+    </script>
 {% endblock %}

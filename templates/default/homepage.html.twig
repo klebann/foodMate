@@ -2,9 +2,110 @@
 
 {% block body_id 'homepage' %}
 
-{% block main %}
-<h1>Jak działa FoodMate?</h1>
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Custom CSS styles */
+        body {
+            font-family: 'Arial', sans-serif;
+        }
 
-<div class="article1"><img src="{{ asset('images/article1.jpg') }}" style="display: block; margin: auto;"></div>
-<p>Chcesz samodzielnie przygotowywać posiłki? Szukasz oszczędności czasu i pieniędzy? Stworzyliśmy narzędzie, które pozwoli Ci sprawnie i szybko planować posiłki tak, że już nigdy nie zabraknie Ci mleka do naleśników do których kupiłeś już dżem i bitą śmietanę! </p>
+        h1 {
+            font-family: 'Times New Roman', serif;
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .subtitle {
+            font-family: 'Verdana', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 100%;
+        }
+
+        .full-width-image {
+            width: 100%;
+            height: auto;
+            max-width: 75%; /* Nowy styl: maksymalna szerokość 50% */
+        }
+
+        .image-container {
+            position: relative;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .centered-container {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="center-content">
+        <div class="container-fluid centered-container">
+            <header class="jumbotron">
+                <h1 class="animate__animated animate__fadeInDown">Witaj w Planerze Posiłków!</h1>
+                <p class="lead animate__animated animate__fadeInUp">Chcesz samodzielnie przygotowywać posiłki? Szukasz oszczędności czasu i pieniędzy?</p>
+                <p class="animate__animated animate__fadeIn">Stworzyliśmy narzędzie, które pozwoli Ci sprawnie i szybko planować posiłki.</p>
+                <a href="{{ path('app_calendar') }}" class="btn btn-primary btn-lg">Zacznij Planować</a>
+            </header>
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="animate__animated animate__fadeIn">Planuj Posiłki Bezproblemowo</h2>
+                        <p class="animate__animated animate__fadeIn">Nasz planer posiłków pomoże Ci zorganizować codzienne menu, uniknąć braków składników i zaoszczędzić czas.</p>
+                        <p class="animate__animated animate__fadeIn">Pozwoli również na kontrolę nad spożywanymi kaloriami, dzięki czemu łatwiej będzie dostosować je do swoich preferencji i ustalić codzienny bilans kaloryczny.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{{ asset('images/article1.jpg') }}" class="full-width-image animate__animated animate__fadeIn" alt="Obrazek artykułu">
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <img src="{{ asset('images/przepis.png') }}" class="full-width-image animate__animated animate__fadeIn" alt="Obrazek przepisu">
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="animate__animated animate__fadeIn">Pyszne Przepisy</h2>
+                        <p class="animate__animated animate__fadeIn">Odkryj naszą kolekcję przepisów na smaczne i zdrowe dania. Znajdziesz tu inspiracje na każdą okazję.</p>
+                        <a href="{{ path('app_product') }}" class="btn btn-primary">Przeglądaj Przepisy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 {% endblock %}

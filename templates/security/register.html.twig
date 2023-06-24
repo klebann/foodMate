@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Rejestracja!{% endblock %}
 
 {% block body %}
     {% block header %}
@@ -39,7 +39,7 @@
                                 </div>
                             {% endif %}
 
-                            <h2 class="fw-bold mb-5">Logowanie</h2>
+                            <h2 class="fw-bold mb-5">Rejestracja</h2>
                             <div class="mb-3">
                                 <label for="inputUsername">Nazwa użytkownika</label>
                                 <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
@@ -48,25 +48,18 @@
                                 <label for="inputPassword">Hasło</label>
                                 <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="inputPassword">Powtórz hasło</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            </div>
 
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                            {#
-                            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                            See https://symfony.com/doc/current/security/remember_me.html
-
-                            <div class="checkbox mb-3">
-                                <label>
-                                    <input type="checkbox" name="_remember_me"> Remember me
-                                </label>
-                            </div>
-                            #}
-
                             <div class="mb-4"></div>
                             <button class="btn btn-lg btn-success btn-block" type="submit">
-                                Zaloguj
+                                Zarejestruj się
                             </button>
-                            <a class="btn btn-lg btn-light btn-block" href="{{ path('app_register') }}" role="button">Załóż konto</a>
+                            <a class="btn btn-lg btn-light btn-block" href="{{ path('app_login') }}" role="button">Zaloguj się</a>
 
                             <a href="{{ path('homepage') }}" class="position-absolute top-0 end-0 mt-3 me-3" style="font-size: 24px; color: #212529; text-decoration: none;">
                                 &times;
