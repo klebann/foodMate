@@ -16,7 +16,10 @@ class FridgeProductType extends AbstractType
             ->add('product')
             ->add('quantity')
             ->add('submit', SubmitType::class, [
-                'label' => 'Dodaj'
+                'label' => 'Dodaj',
+                'attr' => [
+                    'class' => 'btn btn-success',
+                ]
             ])
         ;
     }

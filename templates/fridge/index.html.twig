@@ -14,11 +14,11 @@
                     <div class="product-quantity d-flex align-items-center ms-auto">
                         <p>Ilość: {{ fridge_product.quantity }} {{ fridge_product.product.unit }}</p>
                     </div>
-                    <button class="btn btn-sm btn-danger remove-btn">Usuń</button>
+                    <a href="{{ path('fridge_delete', {id: fridge_product.id} ) }}"><button class="btn btn-sm btn-danger remove-btn">Usuń</button></a>
                 </div>
             </li>
         {% endfor %}
     </ul>
 
-    <a href="{{ path('fridge_add') }}">Dodaj</a>
+    <a class="btn btn-sm btn-success" href="{{ path('fridge_add') }}">Dodaj</a>
 {% endblock %}

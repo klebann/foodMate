@@ -6,6 +6,7 @@ use App\Entity\Fridge;
 use App\Entity\FridgeProduct;
 use App\Form\FridgeProductType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,7 +60,16 @@ class FridgeController extends AbstractController
         }
 
         return $this->render('fridge/add.html.twig', [
-            'fridgeproduct_form' => $form
+            'form' => $form,
         ]);
+    }
+
+    #[Route('/fridge/delete/{id}', name: 'fridge_delete')]
+    public function delete(int $id): RedirectResponse
+    {
+        $fridgeProduct = $this->em->getRepository(FridgeProduct::class)->find($id);
+        $this->em->remove($fridgeProduct);
+        $this->em->flush();
+        return $this->redirectToRoute('fridge');
     }
 }

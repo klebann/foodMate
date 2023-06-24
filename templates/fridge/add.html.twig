@@ -5,5 +5,19 @@
 {% block main %}
     <h1>Dodaj produkt do lodówki:</h1>
 
-    {{ form(fridgeproduct_form) }}
+    {{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.product, {'label': 'Produkt:'}) }}
+        </div>
+        <div class="col" id="some-custom-id">
+            {{ form_row(form.quantity, {'label': 'Ilość:'}) }}
+        </div>
+    </div>
+    <div>{{ form_row(form.submit, { 'label': 'Dodaj' }) }}</div>
+    {{ form_end(form) }}
 {% endblock %}
