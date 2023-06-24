@@ -6,11 +6,14 @@
     <h1>Lodówka:</h1>
 
     <ul>
-        {% for product in products %}
+        {% for fridge_product in fridge_products %}
             <li>
-                <a href="{{ path('product_show', {id: product.id} ) }}">{{ product.name }}</a>
-                <p>{{ product.description }}</p>
+                <a href="{{ path('product_show', {id: fridge_product.product.id} ) }}"><h2>{{ fridge_product.product.name }}</h2></a>
+                <p>Opis: {{ fridge_product.product.description }}</p>
+                <p>Ilość: {{ fridge_product.quantity }} {{ fridge_product.product.unit }}</p>
             </li>
         {% endfor %}
     </ul>
+
+    <a href="{{ path('fridge_add') }}">Dodaj</a>
 {% endblock %}

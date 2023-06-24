@@ -4,6 +4,9 @@
 
 {% block main %}
     Produkt {{ product.id }}:<br>
-     * Nazwa: {{ product.name }}<br>
-     * Opis: {{ product.description }}
+    <ul>
+        <li>Nazwa: {{ product.name }}</li>
+        <li>Opis: {{ product.description }}</li>
+        <li>Jednostki: {{ product.description }}</li>
+    </ul>
 {% endblock %}

@@ -17,6 +17,10 @@ class FridgeProduct
     #[ORM\JoinColumn(nullable: false)]
     private ?Fridge $fridge = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Product $product = null;
+
     #[ORM\Column]
     private ?float $quantity = null;
 
@@ -45,6 +49,25 @@ class FridgeProduct
     public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function addQuantity(float $quantity): self
+    {
+        $this->quantity += $quantity;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }

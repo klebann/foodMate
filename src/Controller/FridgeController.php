@@ -2,21 +2,64 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
+use App\Entity\Fridge;
+use App\Entity\FridgeProduct;
+use App\Form\FridgeProductType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FridgeController extends AbstractController
 {
-    #[Route('/fridge', name: 'fridge')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function __construct(private EntityManagerInterface $em)
     {
-        $products = $entityManager->getRepository(Product::class)->findAll();
+    }
 
-        return $this->render('fridge/index.html.twig',  [
-            'products' => $products,
+    #[Route('/fridge', name: 'fridge')]
+    public function index(): Response
+    {
+        // ToDo: Get current user fridge.
+        $fridge = $this->em->getRepository(Fridge::class)->find(1);
+
+        return $this->render('fridge/index.html.twig', [
+            'fridge_products' => $fridge->getProducts(),
+        ]);
+    }
+
+    #[Route('/fridge/add', name: 'fridge_add')]
+    public function add(Request $request): Response
+    {
+        $newFridgeProduct = new FridgeProduct();
+        $form = $this->createForm(FridgeProductType::class, $newFridgeProduct);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $existingProduct = $this->em->getRepository(FridgeProduct::class)->findOneBy([
+                'product' => $newFridgeProduct->getProduct()->getId()
+            ]);
+            if ($existingProduct) {
+                $existingProduct->addQuantity($newFridgeProduct->getQuantity());
+
+                $this->em->persist($existingProduct);
+                $this->em->flush();
+
+                return $this->redirectToRoute('fridge');
+            }
+
+            // ToDo: Get current user fridge.
+            $fridge = $this->em->getRepository(Fridge::class)->find(1);
+            $newFridgeProduct->setFridge($fridge);
+
+            $this->em->persist($newFridgeProduct);
+            $this->em->flush();
+
+            return $this->redirectToRoute('fridge');
+        }
+
+        return $this->render('fridge/add.html.twig', [
+            'fridgeproduct_form' => $form
         ]);
     }
 }

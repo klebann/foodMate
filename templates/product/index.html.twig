@@ -15,7 +15,7 @@
         {% for product in products %}
             <li>
                 <h2><a href="{{ path('product_show', {id: product.id} ) }}">{{ product.name }}</a></h2>
-                <p>{{ product.description }}</p>
+                <p>Opis: {{ product.description }}</p>
             </li>
         {% endfor %}
     </ul>
