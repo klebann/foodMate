@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
                 <a class="navbar-brand me-2" href="{{ path('homepage') }}">
-                    <img src="{{ asset('images/logo.png') }}" />
+                    <img src="{{ asset('images/logo.png') }}"/>
                 </a>
             </div>
         </div>
@@ -35,18 +35,20 @@
 
                             {% if app.user %}
                                 <div class="mb-3">
-                                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('logout') }}">Logout</a>
                                 </div>
                             {% endif %}
 
                             <h2 class="fw-bold mb-5">Logowanie</h2>
                             <div class="mb-3">
                                 <label for="inputUsername">Nazwa użytkownika</label>
-                                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+                                <input type="text" value="{{ last_username }}" name="username" id="inputUsername"
+                                       class="form-control" autocomplete="username" required autofocus>
                             </div>
                             <div class="mb-3">
                                 <label for="inputPassword">Hasło</label>
-                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                                <input type="password" name="password" id="inputPassword" class="form-control"
+                                       autocomplete="current-password" required>
                             </div>
 
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -66,9 +68,11 @@
                             <button class="btn btn-lg btn-success btn-block" type="submit">
                                 Zaloguj
                             </button>
-                            <a class="btn btn-lg btn-light btn-block" href="{{ path('app_register') }}" role="button">Załóż konto</a>
+                            <a class="btn btn-lg btn-light btn-block" href="{{ path('register') }}" role="button">Załóż
+                                konto</a>
 
-                            <a href="{{ path('homepage') }}" class="position-absolute top-0 end-0 mt-3 me-3" style="font-size: 24px; color: #212529; text-decoration: none;">
+                            <a href="{{ path('homepage') }}" class="position-absolute top-0 end-0 mt-3 me-3"
+                               style="font-size: 24px; color: #212529; text-decoration: none;">
                                 &times;
                             </a>
 

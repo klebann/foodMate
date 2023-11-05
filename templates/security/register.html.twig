@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center justify-content-between">
                 <a class="navbar-brand me-2" href="{{ path('homepage') }}">
-                    <img src="{{ asset('images/logo.png') }}" />
+                    <img src="{{ asset('images/logo.png') }}"/>
                 </a>
             </div>
         </div>
@@ -28,44 +28,53 @@
             <div class="card-body py-5 px-md-5">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
-                        <form method="post" class="form-signin">
-                            {% if error %}
-                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                            {% endif %}
+                        {{ form_start(registrationForm) }}
 
-                            {% if app.user %}
-                                <div class="mb-3">
-                                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                                </div>
-                            {% endif %}
+                        <h2 class="fw-bold mb-5">Rejestracja</h2>
 
-                            <h2 class="fw-bold mb-5">Rejestracja</h2>
-                            <div class="mb-3">
-                                <label for="inputUsername">Nazwa użytkownika</label>
-                                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+                        <div class="my-custom-class-for-errors">
+                            {{ form_errors(registrationForm) }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                {{ form_row(registrationForm.username, {
+                                    label: 'Login:'
+                                }) }}
                             </div>
-                            <div class="mb-3">
-                                <label for="inputPassword">Hasło</label>
-                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            <div class="col">
+                                {{ form_row(registrationForm.firstName, {
+                                    label: 'Imię:'
+                                }) }}
                             </div>
-                            <div class="mb-3">
-                                <label for="inputPassword">Powtórz hasło</label>
-                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            <div class="col">
+                                {{ form_row(registrationForm.lastName, {
+                                    label: 'Nazwisko:'
+                                }) }}
                             </div>
+                            <div class="col">
+                                {{ form_row(registrationForm.plainPassword, {
+                                    label: 'Hasło:'
+                                }) }}
+                            </div>
+                            <div class="col">
+                                {{ form_row(registrationForm.agreeTerms) }}
+                            </div>
+                        </div>
 
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <div class="mb-4"></div>
+                        <button class="btn btn-lg btn-success btn-block" type="submit">
+                            Zarejestruj się
+                        </button>
 
-                            <div class="mb-4"></div>
-                            <button class="btn btn-lg btn-success btn-block" type="submit">
-                                Zarejestruj się
-                            </button>
-                            <a class="btn btn-lg btn-light btn-block" href="{{ path('app_login') }}" role="button">Zaloguj się</a>
+                        <a class="btn btn-lg btn-light btn-block" href="{{ path('login') }}" role="button">Zaloguj
+                            się</a>
 
-                            <a href="{{ path('homepage') }}" class="position-absolute top-0 end-0 mt-3 me-3" style="font-size: 24px; color: #212529; text-decoration: none;">
-                                &times;
-                            </a>
-
-                        </form>
+                        <a href="{{ path('homepage') }}" class="position-absolute top-0 end-0 mt-3 me-3"
+                           style="font-size: 24px; color: #212529; text-decoration: none;">
+                            &times;
+                        </a>
+                        {{ form_end(registrationForm) }}
                     </div>
                 </div>
             </div>
