@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Fridge;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\UserAuthenticator;
@@ -36,7 +37,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/register', name: 'register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $em): Response
     {
         if ($this->getUser()) {
             $hasAccess = $this->isGranted('ROLE_ADMIN');
@@ -60,8 +61,12 @@ class SecurityController extends AbstractController
                 )
             );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $fridge = new Fridge();
+            $fridge->setUser($user);
+
+            $em->persist($user);
+            $em->persist($fridge);
+            $em->flush();
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(

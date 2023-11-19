@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Fridge;
 use App\Entity\FridgeProduct;
+use App\Entity\User;
 use App\Form\FridgeProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,8 +22,7 @@ class FridgeController extends AbstractController
     #[Route('/fridge', name: 'fridge')]
     public function index(): Response
     {
-        // ToDo: Get current user fridge.
-        $fridge = $this->em->getRepository(Fridge::class)->find(1);
+        $fridge = $this->em->getRepository(Fridge::class)->findOneBy(['user' => $this->getUser()]);
 
         return $this->render('fridge/index.html.twig', [
             'fridge_products' => $fridge->getProducts(),
