@@ -22,7 +22,17 @@ class FridgeController extends AbstractController
     #[Route('/fridge', name: 'fridge')]
     public function index(): Response
     {
-        $fridge = $this->em->getRepository(Fridge::class)->findOneBy(['user' => $this->getUser()]);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $fridge = $this->em->getRepository(Fridge::class)->findOneBy(['user' => $user]);
+
+        if ($fridge === null) {
+            $fridge = new Fridge();
+            $fridge->setUser($user);
+            $this->em->persist($fridge);
+            $this->em->flush();
+        }
 
         return $this->render('fridge/index.html.twig', [
             'fridge_products' => $fridge->getProducts(),
@@ -49,8 +59,7 @@ class FridgeController extends AbstractController
                 return $this->redirectToRoute('fridge');
             }
 
-            // ToDo: Get current user fridge.
-            $fridge = $this->em->getRepository(Fridge::class)->find(1);
+            $fridge = $this->em->getRepository(Fridge::class)->find($this->getUser());
             $newFridgeProduct->setFridge($fridge);
 
             $this->em->persist($newFridgeProduct);

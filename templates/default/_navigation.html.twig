@@ -9,20 +9,22 @@
                 <li class="nav-item d-lg-inline">
                     <a class="nav-link" href="{{ path('homepage') }}">Strona główna</a>
                 </li>
-                <li class="nav-item d-lg-inline">
-                    <a class="nav-link" href="{{ path('fridge') }}">Lodówka</a>
-                </li>
+                {% if is_granted("ROLE_USER") %}
+                    <li class="nav-item d-lg-inline">
+                        <a class="nav-link" href="{{ path('fridge') }}">Lodówka</a>
+                    </li>
+                    <li class="nav-item d-lg-inline">
+                        <a class="nav-link" href="{{ path('app_calendar') }}">Jadłospis</a>
+                    </li>
+                    <li class="nav-item d-lg-inline">
+                        <a class="nav-link" href="{{ path('app_shopping_list') }}">Lista zakupów</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item d-lg-inline">
                     <a class="nav-link" href="{{ path('recipes') }}">Przepisy</a>
                 </li>
                 <li class="nav-item d-lg-inline">
-                    <a class="nav-link" href="{{ path('app_product') }}">Produkty</a>
-                </li>
-                <li class="nav-item d-lg-inline">
-                    <a class="nav-link" href="{{ path('app_calendar') }}">Kalendarz</a>
-                </li>
-                <li class="nav-item d-lg-inline">
-                    <a class="nav-link" href="{{ path('app_shopping_list') }}">Lista zakupów</a>
+                    <a class="nav-link" href="{{ path('products') }}">Produkty</a>
                 </li>
             </ul>
         </div>
