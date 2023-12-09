@@ -3,7 +3,12 @@
 {% block title %}Product: {{ product.name }}{% endblock %}
 
 {% block main %}
-    Produkt {{ product.id }}:<br>
-     * Nazwa: {{ product.name }}<br>
-     * Opis: {{ product.description }}
+    <a class="btn btn-primary" href="{{ path('products' ) }}"> < </a>
+
+    <h1>Produkt {{ product.id }}:</h1>
+    <ul>
+        <li>Nazwa: {{ product.name }}</li>
+        <li>Opis: {{ product.description }}</li>
+        <li>Jednostki: {{ product.unit }}</li>
+    </ul>
 {% endblock %}

@@ -11,14 +11,43 @@
         <button type="submit">Szukaj</button>
     </form>
 
-    <ul>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Jednostki</th>
+            <th scope="col">Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for product in products %}
-            <li>
-                <h2><a href="{{ path('product_show', {id: product.id} ) }}">{{ product.name }}</a></h2>
-                <p>{{ product.description }}</p>
-            </li>
+            <tr>
+                <th scope="row">{{ product.id }}</th>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.unit }}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('product_show', {id: product.id} ) }}">
+                        Pokaż
+                    </a>
+                    <a class="btn btn-info" href="{{ path('product_edit', {id: product.id} ) }}">
+                        Edytuj
+                    </a>
+                    <a class="btn btn-danger" href="{{ path('product_delete', {id: product.id} ) }}">
+                        Usuń
+                    </a>
+                </td>
+            </tr>
         {% endfor %}
+        </tbody>
+    </table>
+    <ul>
+
     </ul>
 
-    <a href="{{ path('product_add') }}"><button class="btn btn-success">Dodaj produkt</button></a>
+    <a href="{{ path('product_add') }}">
+        <button class="btn btn-success">Dodaj produkt</button>
+    </a>
 {% endblock %}
