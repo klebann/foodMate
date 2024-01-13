@@ -7,8 +7,11 @@
 
     <form>
         <label for="search">Wyszukaj produkt:</label>
-        <input type="text" id="search" name="search">
-        <button type="submit">Szukaj</button>
+        <input type="text" id="search" name="search" value="{{ search }}">
+        <a href="{{ path('products') }}" class="btn btn-danger" >
+            Reset
+        </a>
+        <button class="btn btn-success" type="submit">Szukaj</button>
     </form>
 
     <table class="table">

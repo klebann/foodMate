@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Attribute\Template;
@@ -15,12 +16,21 @@ class ProductController extends AbstractController
 {
     #[Route('/products', name: 'products')]
     #[Template('product/index.html.twig')]
-    public function index(EntityManagerInterface $entityManager): array
+    public function index(Request $request, EntityManagerInterface $entityManager): array
     {
-        $products = $entityManager->getRepository(Product::class)->findAll();
+        $search = $request->query->get('search');
+
+        /** @var ProductRepository $repo */
+        $repo = $entityManager->getRepository(Product::class);
+        if ($search === null) {
+            $products = $repo->findAll();
+        } else {
+            $products = $repo->findLike($search);
+        }
 
         return [
             'products' => $products,
+            'search' => $search
         ];
     }
 

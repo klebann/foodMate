@@ -16,8 +16,17 @@ class ProductType extends AbstractType
             ->add('name', null, [
                 'label' => 'Nazwa:'
             ])
+            ->add('code', null, [
+                'label' => 'Kod kreskowy:'
+            ])
             ->add('description', null, [
                 'label' => 'Opis:'
+            ])
+            ->add('kcal', null, [
+                'label' => 'Kalorie na 100g:'
+            ])
+            ->add('weight', null, [
+                'label' => 'Waga [g]:'
             ])
             ->add('unit', null, [
                 'label' => 'Jednostka:'
