@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Fridge;
-use App\Entity\FridgeProduct;
 use App\Entity\Product;
 use App\Form\ProductType;
-use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Attribute\Template;

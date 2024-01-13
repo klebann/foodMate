@@ -15,8 +15,11 @@
         <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Kod</th>
             <th scope="col">Nazwa</th>
             <th scope="col">Opis</th>
+            <th scope="col">Waga [g]</th>
+            <th scope="col">kcal / 100g</th>
             <th scope="col">Jednostki</th>
             <th scope="col">Akcja</th>
         </tr>
@@ -25,8 +28,11 @@
         {% for product in products %}
             <tr>
                 <th scope="row">{{ product.id }}</th>
+                <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
+                <td>{{ product.weight }}</td>
+                <td>{{ product.kcal }}</td>
                 <td>{{ product.unit }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ path('product_show', {id: product.id} ) }}">
