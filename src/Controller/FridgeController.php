@@ -47,9 +47,13 @@ class FridgeController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $fridge = $this->em->getRepository(Fridge::class)->findOneBy(['user' => $this->getUser()]);
+
             $existingProduct = $this->em->getRepository(FridgeProduct::class)->findOneBy([
-                'product' => $newFridgeProduct->getProduct()->getId()
+                'product' => $newFridgeProduct->getProduct()->getId(),
+                'fridge' => $fridge
             ]);
+
             if ($existingProduct) {
                 $existingProduct->addQuantity($newFridgeProduct->getQuantity());
 
@@ -59,7 +63,6 @@ class FridgeController extends AbstractController
                 return $this->redirectToRoute('fridge');
             }
 
-            $fridge = $this->em->getRepository(Fridge::class)->find($this->getUser());
             $newFridgeProduct->setFridge($fridge);
 
             $this->em->persist($newFridgeProduct);
