@@ -20,9 +20,6 @@ class Recipe
     #[ORM\Column(nullable: true)]
     private ?int $time = null;
 
-    #[ORM\Column(type: Types::JSON)]
-    private array $ingredients = [];
-
     #[ORM\Column(nullable: true)]
     private ?int $servings = null;
 
