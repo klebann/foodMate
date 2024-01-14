@@ -3,5 +3,27 @@
 {% block title %}Hello ProductController!{% endblock %}
 
 {% block main %}
-    <h1>Strona w przebudowie!</h1>
+    <h1>Lista przepisów</h1>
+
+    <form action="{{ path('import_recipes') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="import">
+        <input class="btn btn-info" type="submit" value="Import" name="submit">
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for recipe in recipes %}
+            <tr>
+                <th scope="row">{{ recipe.id }}</th>
+                <td>{{ recipe.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

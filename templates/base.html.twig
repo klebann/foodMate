@@ -11,6 +11,25 @@
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
+        <style>
+            body{ min-height: 100vh; margin:0; }
+            body{ display:flex; flex-direction:column; }
+
+            .container {
+                flex: 1;
+            }
+
+            footer {
+                background-color: #31a745; /* Zielone tło */
+                color: white; /* Biały tekst */
+                padding: 2px;
+                text-align: center;
+            }
+
+            footer p {
+                margin-bottom: 0px;
+            }
+        </style>
     {% endblock %}
 
     {% block javascripts %}
@@ -56,6 +75,15 @@
             </div>
         </div>
     </div>
+
+    <footer>
+        <div>
+            <p>&copy; 2024 FootMate. Wszystkie prawa zastrzeżone.</p>
+            <p>Twórcy aplikacji: Jakub Kleban, Michalina Admkiewicz, Sebastian Kostecki</p>
+            <p>Studenci informatyki</p>
+            <p>Wersja aplikacji: 1.0.0</p>
+        </div>
+    </footer>
 {% endblock %}
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js') }}"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js') }}"></script>
