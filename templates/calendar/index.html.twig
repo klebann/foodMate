@@ -972,7 +972,7 @@
         addEventSubmit.addEventListener("click", () => {
             const eventMeal = addEventMeal.value;
             const eventTitle = addEventTitle.value;
-            if (eventTitle === "") {
+            if (eventTitle === "" || eventMeal ==="") {
                 alert("Uzupełnij wszystkie pola");
                 return;
             }
@@ -1039,8 +1039,8 @@
         //function to delete event when clicked on event
         eventsContainer.addEventListener("click", (e) => {
             if (e.target.classList.contains("event")) {
-                if (confirm("Are you sure you want to delete this event?")) {
-                    const eventTitle = e.target.children[0].children[1].innerHTML;
+                const eventTitle = e.target.children[0].children[1].innerHTML;
+                if (confirm(`Jestes pewny, że chcesz usunąć ${eventTitle}?`)) {
                     eventsArr.forEach((event) => {
                         if (
                             event.day === activeDay &&
