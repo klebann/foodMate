@@ -7,6 +7,8 @@ use App\Entity\FridgeProduct;
 use App\Entity\User;
 use App\Form\FridgeProductType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\HeaderUtils;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,8 +24,12 @@ class FridgeController extends AbstractController
     #[Route('/fridge', name: 'fridge')]
     public function index(): Response
     {
-        /** @var User $user */
+        /** @var null|User $user */
         $user = $this->getUser();
+
+        if ($user === null) {
+            return new RedirectResponse($this->generateUrl('homepage'));
+        }
 
         $fridge = $this->em->getRepository(Fridge::class)->findOneBy(['user' => $user]);
 
@@ -83,5 +89,38 @@ class FridgeController extends AbstractController
         $this->em->remove($fridgeProduct);
         $this->em->flush();
         return $this->redirectToRoute('fridge');
+    }
+
+    #[Route('/fridge/export.json', name: 'fridge_export')]
+    function export(): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $fridge = $this->em->getRepository(Fridge::class)->findOneBy(['user' => $user]);
+
+        $products = [];
+        foreach ($fridge->getProducts() as $product) {
+            $products[] = [
+                'id' => $product->getId(),
+                'code' => $product->getProduct()->getCode(),
+                'name' => $product->getProduct()->getName(),
+                'quantity' => $product->getQuantity(),
+                'unit' => $product->getProduct()->getUnit()
+            ];
+        }
+
+        $response = new JsonResponse([
+            'products' => $products
+        ]);
+
+        $disposition = HeaderUtils::makeDisposition(
+            HeaderUtils::DISPOSITION_ATTACHMENT,
+            'export.json'
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
     }
 }
