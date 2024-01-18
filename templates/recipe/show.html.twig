@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Przepis: {{ recipe.name }}{% endblock %}
+
+{% block main %}
+    <a class="btn btn-primary" href="{{ path('recipes' ) }}"> < </a>
+
+    <h1>Produkt {{ recipe.id }}:</h1>
+    <ul>
+        <li>Nazwa: {{ recipe.name }}</li>
+        <li>Opis: {{ recipe.description }}</li>
+
+        <li>Kategoria: {{ recipe.category }}</li>
+        <li>Cena: {{ recipe.price }} zł</li>
+        <li>Czas: {{ recipe.time }} min</li>
+        <li>Ilość porcji: {{ recipe.servings }}</li>
+        <li>Trudność: {{ recipe.difficulty }}</li>
+
+        <li>Instrukcje: {{ recipe.instructions }}</li>
+
+        <li>Składniki:
+            <ul>
+                {% for ingredient in recipe.ingredients %}
+                    <li>
+                        {{ ingredient.product.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,6 +31,23 @@ class Recipe
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $category = null;
 
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Ingredients::class, orphanRemoval: true)]
+    private Collection $ingredients;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $price = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $difficulty = null;
+
+    public function __construct()
+    {
+        $this->ingredients = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,18 +73,6 @@ class Recipe
     public function setTime(?int $time): self
     {
         $this->time = $time;
-
-        return $this;
-    }
-
-    public function getIngredients(): array
-    {
-        return $this->ingredients;
-    }
-
-    public function setIngredients(array $ingredients): self
-    {
-        $this->ingredients = $ingredients;
 
         return $this;
     }
@@ -102,6 +109,72 @@ class Recipe
     public function setCategory(?string $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?string
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(?string $difficulty): self
+    {
+        $this->difficulty = $difficulty;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredients>|Ingredients[]
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredients $ingredient): self
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+            $ingredient->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredients $ingredient): self
+    {
+        if ($this->ingredients->removeElement($ingredient)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredient->getRecipe() === $this) {
+                $ingredient->setRecipe(null);
+            }
+        }
 
         return $this;
     }
