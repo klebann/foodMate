@@ -8,7 +8,7 @@
     <form>
         <label for="search">Wyszukaj produkt:</label>
         <input type="text" id="search" name="search" value="{{ search }}">
-        <a href="{{ path('products') }}" class="btn btn-danger" >
+        <a href="{{ path('products') }}" class="btn btn-danger">
             Reset
         </a>
         <button class="btn btn-success" type="submit">Szukaj</button>
@@ -30,7 +30,9 @@
         <tbody>
         {% for product in products %}
             <tr>
-                <th scope="row">{{ product.id }}</th>
+                <th scope="row">
+                    <a href="{{ path('product_show', {id: product.id} ) }}">{{ product.id }}</a>
+                </th>
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
@@ -41,19 +43,23 @@
                     <a class="btn btn-info" href="{{ path('product_show', {id: product.id} ) }}">
                         Pokaż
                     </a>
-                    <a class="btn btn-info" href="{{ path('product_edit', {id: product.id} ) }}">
-                        Edytuj
-                    </a>
-                    <a class="btn btn-danger" href="{{ path('product_delete', {id: product.id} ) }}">
-                        Usuń
-                    </a>
+                    {% if is_granted("ROLE_USER") %}
+                        <a class="btn btn-info" href="{{ path('product_edit', {id: product.id} ) }}">
+                            Edytuj
+                        </a>
+                        <a class="btn btn-danger" href="{{ path('product_delete', {id: product.id} ) }}">
+                            Usuń
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('product_add') }}">
-        <button class="btn btn-success">Dodaj produkt</button>
-    </a>
+    {% if is_granted("ROLE_USER") %}
+        <a href="{{ path('product_add') }}">
+            <button class="btn btn-success">Dodaj produkt</button>
+        </a>
+    {% endif %}
 {% endblock %}

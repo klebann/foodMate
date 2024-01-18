@@ -5,10 +5,12 @@
 {% block main %}
     <h1>Lista przepisów</h1>
 
-    <form action="{{ path('import_recipes') }}" method="post" enctype="multipart/form-data">
-        <input type="file" name="import">
-        <input class="btn btn-info" type="submit" value="Import" name="submit">
-    </form>
+    {% if is_granted("ROLE_USER") %}
+        <form action="{{ path('import_recipes') }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="import">
+            <input class="btn btn-info" type="submit" value="Import" name="submit">
+        </form>
+    {% endif %}
 
     <table class="table">
         <thead>
