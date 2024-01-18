@@ -22,7 +22,7 @@
             <ul>
                 {% for ingredient in recipe.ingredients %}
                     <li>
-                        {{ ingredient.product.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}
+                        {{ ingredient.product.name }}: {{ ingredient.quantity }} {{ ingredient.product.unit }}
                     </li>
                 {% endfor %}
             </ul>

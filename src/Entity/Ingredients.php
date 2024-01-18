@@ -20,9 +20,6 @@ class Ingredients
     #[ORM\Column]
     private ?float $quantity = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $unit = null;
-
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Recipe $recipe = null;
@@ -52,18 +49,6 @@ class Ingredients
     public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getUnit(): ?string
-    {
-        return $this->unit;
-    }
-
-    public function setUnit(string $unit): self
-    {
-        $this->unit = $unit;
 
         return $this;
     }

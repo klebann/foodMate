@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Ingredients;
+use App\Entity\Product;
 use App\Entity\Recipe;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,12 +32,51 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/recipes/import', name: 'import_recipes')]
+    #[Route('/import/recipes', name: 'import_recipes')]
     function import(Request $request, EntityManagerInterface $em)
     {
         $file = new File($request->files->get('import'));
-        dd(json_decode($file->getContent()));
+        $recipes = json_decode($file->getContent());
 
+        foreach ($recipes as $recipe) {
+            $newRecipe = new Recipe();
+            $newRecipe->setName($recipe->name);
+            $newRecipe->setDescription($recipe->description);
+            $newRecipe->setPrice($recipe->price);
+            $newRecipe->setTime($recipe->time);
+            $newRecipe->setServings($recipe->portion);
+            $newRecipe->setDifficulty($recipe->difficulty);
 
+            $instructions = "";
+            foreach ($recipe->steps as $step) {
+                $instructions .= "$step->step_number. $step->description\n";
+            }
+            $newRecipe->setInstructions($instructions);
+
+            foreach ($recipe->ingredients as $ingredient) {
+                $product = $em->getRepository(Product::class)->findOneBy([
+                    'code' => $ingredient->bar_code
+                ]);
+
+                if ($product === null) {
+                    $product = new Product();
+                    $product->setName($ingredient->name);
+                    $product->setUnit($ingredient->unit);
+                    $product->setCode($ingredient->bar_code);
+                    $em->persist($product);
+                }
+
+                $newIngredient = new Ingredients();
+                $newIngredient->setProduct($product);
+                $newIngredient->setQuantity($ingredient->quantity);
+                $em->persist($newIngredient);
+
+                $newRecipe->addIngredient($newIngredient);
+            }
+            $em->persist($newRecipe);
+        }
+        $em->flush();
+
+        return $this->redirectToRoute('recipes');
     }
 }

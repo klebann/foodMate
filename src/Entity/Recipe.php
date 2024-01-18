@@ -150,7 +150,7 @@ class Recipe
     }
 
     /**
-     * @return Collection<int, Ingredients>|Ingredients[]
+     * @return Collection<int, Ingredients>
      */
     public function getIngredients(): Collection
     {
