@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Amp\Iterator\concat;
 
 class RecipeController extends AbstractController
 {
@@ -39,6 +40,14 @@ class RecipeController extends AbstractController
         $recipes = json_decode($file->getContent());
 
         foreach ($recipes as $recipe) {
+            $repRecipe = $em->getRepository(Recipe::class)->findOneBy([
+                'name' => $recipe->name
+            ]);
+
+            if ($repRecipe !== null) {
+                continue;
+            }
+
             $newRecipe = new Recipe();
             $newRecipe->setName($recipe->name);
             $newRecipe->setDescription($recipe->description);
