@@ -45,8 +45,8 @@ class FridgeController extends AbstractController
         ]);
     }
 
-    #[Route('/fridge/add', name: 'fridge_add')]
-    public function add(Request $request): Response
+    #[Route('/fridge/new', name: 'fridge_new')]
+    public function new(Request $request): Response
     {
         $newFridgeProduct = new FridgeProduct();
         $form = $this->createForm(FridgeProductType::class, $newFridgeProduct);
@@ -122,5 +122,26 @@ class FridgeController extends AbstractController
         $response->headers->set('Content-Disposition', $disposition);
 
         return $response;
+    }
+
+    #[Route('/fridge/add/{id}', name: 'fridge_add')]
+    public function add(int $id): RedirectResponse
+    {
+        $fridgeProduct = $this->em->getRepository(FridgeProduct::class)->find($id);
+        $fridgeProduct->setQuantity($fridgeProduct->getQuantity() + 1);
+        $this->em->flush();
+        return $this->redirectToRoute('fridge');
+    }
+
+    #[Route('/fridge/subtract/{id}', name: 'fridge_subtract')]
+    public function subtract(int $id): RedirectResponse
+    {
+        $fridgeProduct = $this->em->getRepository(FridgeProduct::class)->find($id);
+        $fridgeProduct->setQuantity($fridgeProduct->getQuantity() - 1);
+        if ($fridgeProduct->getQuantity() < 1) {
+            $this->em->remove($fridgeProduct);
+        }
+        $this->em->flush();
+        return $this->redirectToRoute('fridge');
     }
 }

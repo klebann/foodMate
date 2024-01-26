@@ -12,7 +12,9 @@
                     <span class="product-name"><a href="{{ path('product_show', {id: fridge_product.product.id} ) }}">{{ fridge_product.product.name }}</a></span>
                     - {{ fridge_product.product.description }}
                     <div class="product-quantity d-flex align-items-center ms-auto">
+                        <a class="btn btn-info" href="{{ path('fridge_subtract', {id: fridge_product.id}) }}">-</a>
                         <p>Ilość: {{ fridge_product.quantity }} {{ fridge_product.product.unit }}</p>
+                        <a class="btn btn-info" href="{{ path('fridge_add', {id: fridge_product.id}) }}">+</a>
                     </div>
                     <a href="{{ path('fridge_delete', {id: fridge_product.id} ) }}"><button class="btn btn-sm btn-danger remove-btn">Usuń</button></a>
                 </div>
@@ -20,6 +22,6 @@
         {% endfor %}
     </ul>
 
-    <a class="btn btn-sm btn-success" href="{{ path('fridge_add') }}">Dodaj</a>
+    <a class="btn btn-sm btn-success" href="{{ path('fridge_new') }}">Nowy</a>
     <a class="btn btn-sm btn-info" href="{{ path('fridge_export') }}">Export</a>
 {% endblock %}
