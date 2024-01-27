@@ -184,6 +184,10 @@
             background-color: var(--primary-clr);
         }
 
+        .col-form-label {
+            color: black;
+        }
+
         .calendar .days .day:hover.event::after {
             background-color: #fff;
         }
@@ -642,30 +646,15 @@
                 <div class="event-day"></div>
                 <div class="event-date"></div>
             </div>
-            <div class="events"></div>
+            <div class="events">
+
+            </div>
             <div class="add-event-wrapper">
                 <div class="add-event-header">
                     <div class="title">Jadłospis</div>
                     <i class="fas fa-times close"></i>
                 </div>
-                <div class="add-event-body">
-                    <div class="add-event-input">
-                        <select class="event-name">
-                            <option value="Śniadanie">Śniadanie</option>
-                            <option value="II Śniadanie">II Śniadanie</option>
-                            <option value="Lunch">Lunch</option>
-                            <option value="Obiad">Obiad</option>
-                            <option value="Przekąska">Przekąska</option>
-                            <option value="Kolacja">Kolacja</option>
-                        </select>
-                    </div>
-                    <div class="add-event-input">
-                        <input type="text" placeholder="Wpisz nazwę dania np. jajecznica" class="event-meal"/>
-                    </div>
-                </div>
-                <div class="add-event-footer">
-                    <button class="add-event-btn">Dodaj</button>
-                </div>
+                {{ form(form) }}
             </div>
         </div>
         <button class="add-event">
