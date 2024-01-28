@@ -2,6 +2,41 @@
 
 {% block title %}FoodMate - Lista zakupów{% endblock %}
 
+{% block main %}
+    <div class="container">
+        <h1>Lista zakupów</h1>
+        <ul class="list-group">
+            {% for item in list %}
+                <li class="list-group-item d-flex justify-content-between align-items-center" id="item1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="checkbox1">
+                        <label class="form-check-label" for="checkbox1">
+                            {{ item.product.name }} x {{ item.quantity }}
+                        </label>
+                    </div>
+                    <button class="btn btn-danger delete-button" onclick="removeItem('item1')">Usuń</button>
+                </li>
+            {% endfor %}
+        </ul>
+{#        <form>#}
+{#            <div class="form-group">#}
+{#                <label for="new-item">Dodaj nowy produkt do listy:</label>#}
+{#                <input type="text" class="form-control" id="new-item" placeholder="Wpisz nazwę produktu">#}
+{#            </div>#}
+{#            <button type="submit" class="btn btn-primary">Dodaj</button>#}
+{#        </form>#}
+    </div>
+
+    <script>
+        // Funkcja usuwająca element z listy
+        function removeItem(itemId) {
+            const listItem = document.getElementById(itemId);
+            listItem.parentNode.removeChild(listItem);
+        }
+    </script>
+{% endblock %}
+
+
 {% block stylesheets %}
     {{ parent() }}
     <style>
@@ -39,48 +74,4 @@
             cursor: pointer;
         }
     </style>
-{% endblock %}
-
-{% block main %}
-    <div class="container">
-        <h1>Lista zakupów</h1>
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center" id="item1">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="checkbox1">
-                    <label class="form-check-label" for="checkbox1">Jabłka</label>
-                </div>
-                <button class="btn btn-danger delete-button" onclick="removeItem('item1')">Usuń</button>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" id="item2">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="checkbox2">
-                    <label class="form-check-label" for="checkbox2">Mleko</label>
-                </div>
-                <button class="btn btn-danger delete-button" onclick="removeItem('item2')">Usuń</button>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center" id="item3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="checkbox3">
-                    <label class="form-check-label" for="checkbox3">Chleb</label>
-                </div>
-                <button class="btn btn-danger delete-button" onclick="removeItem('item3')">Usuń</button>
-            </li>
-        </ul>
-        <form>
-            <div class="form-group">
-                <label for="new-item">Dodaj nowy produkt do listy:</label>
-                <input type="text" class="form-control" id="new-item" placeholder="Wpisz nazwę produktu">
-            </div>
-            <button type="submit" class="btn btn-primary">Dodaj</button>
-        </form>
-    </div>
-
-    <script>
-        // Funkcja usuwająca element z listy
-        function removeItem(itemId) {
-            const listItem = document.getElementById(itemId);
-            listItem.parentNode.removeChild(listItem);
-        }
-    </script>
 {% endblock %}

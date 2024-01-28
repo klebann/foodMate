@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Fridge;
+use App\Entity\FridgeProduct;
 use App\Entity\Meal;
 use App\Entity\Recipe;
+use App\Entity\ShoppingList;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,9 +52,43 @@ class CalendarController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Meal $meal */
             $meal = $form->getData();
 
             $em->persist($meal);
+
+            $fridge = $em->getRepository(Fridge::class)->findOneBy(['user' => $this->getUser()]);
+
+            foreach ($meal->getRecipe()->getIngredients() as $ingredient) {
+                $fProduct = $em->getRepository(FridgeProduct::class)->findOneBy([
+                    'product' => $ingredient->getProduct(),
+                    'fridge' => $fridge
+                ]);
+
+                if ($fProduct === null) {
+                    $shoppingList = new ShoppingList();
+                    $shoppingList
+                        ->setQuantity($ingredient->getQuantity())
+                        ->setUser($this->getUser())
+                        ->setProduct($ingredient->getProduct());
+                    $em->persist($shoppingList);
+                } else {
+                    $quantity = $fProduct->getQuantity() - $ingredient->getQuantity();
+                    $fProduct->setQuantity($quantity);
+                    if ($quantity < 0) {
+                        $shoppingList = new ShoppingList();
+                        $shoppingList
+                            ->setQuantity(-$quantity)
+                            ->setUser($this->getUser())
+                            ->setProduct($ingredient->getProduct());
+                        $em->persist($shoppingList);
+                    }
+                    if ($quantity < 1) {
+                        $em->remove($fProduct);
+                    }
+                }
+            }
+
             $em->flush();
 
             return $this->redirectToRoute('app_calendar', [
