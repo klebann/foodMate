@@ -13,6 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
         "easycorp/easyadmin-bundle": "^4",
+        "friendsofsymfony/jsrouting-bundle": "^3.5",
         "symfony/asset": "6.3.*",
         "symfony/console": "6.3.*",
         "symfony/dotenv": "6.3.*",
